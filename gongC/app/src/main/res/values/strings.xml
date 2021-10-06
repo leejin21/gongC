@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">gongC</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- 공통 -->
+    <string name="email">Email</string>
+    <string name="input_email">email@email.com</string>
+    <string name="password">Password</string>
+    <string name="input_password">password</string>
+    <string name="wrong_password">Wrong Password!</string>
+
+    <!-- SIGN IN 프래그먼트 -->
+    <string name="sign_in">LOG IN</string>
+    <string name="first_time">First time in GongC?</string>
+
+    <!-- SIGN UP 프래그먼트 -->
+    <string name="sign_up">SIGN UP</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="nickname">Nickname</string>
+    <string name="input_nickname">nickname</string>
+
+
+</resources>
