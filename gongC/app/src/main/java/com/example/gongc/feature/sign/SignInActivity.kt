@@ -1,7 +1,8 @@
-package com.example.gongc
+package com.example.gongc.feature.sign
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.gongc.R
 
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,11 +1,12 @@
-package com.example.gongc
+package com.example.gongc.feature.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.gongc.R
 
-class SignUpActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(R.layout.activity_home)
     }
 }
