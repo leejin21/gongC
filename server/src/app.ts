@@ -4,6 +4,7 @@ import express, { Response, Request, NextFunction } from "express";
 import cors from "cors";
 
 import { sequelize } from "./models";
+import User from "./models/user.model";
 
 dotenv.config();
 // * APP VARIABLES
@@ -26,12 +27,26 @@ app.get("/", (req: Request, res: Response) => {
     res.send("hello express");
 });
 
+app.get("/test", (req: Request, res: Response) => {
+    // email password nickname rasp_token android_token
+    const user = new User({
+        email: "test@gmail.com",
+        password: "1111",
+        nickname: "안녕",
+    });
+    user.save();
+
+    res.status(200).send({ done: true });
+
+    // res.status(400).send({ done: false });
+});
+
 // 5000 포트로 서버 실행
 app.listen(PORT, HOST, async () => {
     console.log(`server on: listening on ${HOST}:${PORT}`);
     // sequelize-db connection test
     await sequelize
-        .authenticate()
+        .sync({})
         .then(async () => {
             console.log("seq connection success");
         })

@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 import { config } from "../config/config";
 
 export const sequelize = new Sequelize(
@@ -8,5 +8,6 @@ export const sequelize = new Sequelize(
     {
         host: config.development.host,
         dialect: "mysql",
+        models: [__dirname + "/**/*.model.ts"],
     }
 );

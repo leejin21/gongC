@@ -20,9 +20,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.config = void 0;
-var dotenv = __importStar(require("dotenv"));
+const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-var env = process.env;
+const env = process.env;
 exports.config = {
     development: {
         username: env.MYSQL_USERNAME || "root",
