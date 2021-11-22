@@ -5,6 +5,7 @@ import cors from "cors";
 
 import { sequelize } from "./models";
 import User from "./models/user.model";
+import indexRouter from "./routes";
 
 dotenv.config();
 // * APP VARIABLES
@@ -20,7 +21,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-// TODO ROUTER SETTING
+// * ROUTER SETTING
+app.use(indexRouter);
 
 // get
 app.get("/", (req: Request, res: Response) => {

@@ -28,6 +28,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const models_1 = require("./models");
 const user_model_1 = __importDefault(require("./models/user.model"));
+const routes_1 = __importDefault(require("./routes"));
 dotenv.config();
 // * APP VARIABLES
 const PORT = parseInt(process.env.PORT, 10) || 5000;
@@ -40,7 +41,8 @@ app.use((req, res, next) => {
     console.log(`Request occur! ${req.method}, ${req.url}`);
     next();
 });
-// TODO ROUTER SETTING
+// * ROUTER SETTING
+app.use(routes_1.default);
 // get
 app.get("/", (req, res) => {
     res.send("hello express");

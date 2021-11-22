@@ -1,14 +1,14 @@
 import { Router } from "express";
 import concentController from "../controllers/concent-controller";
 
-const router = Router();
+const concentRouter = Router();
 
-router.post("data", concentController.postData);
+concentRouter.post("/data", concentController.postData);
 
-router.get("daily_data", concentController.getDailyData);
+concentRouter.get("/daily_data", concentController.getDailyData);
 
-router.get("weekly_data", concentController.getWeeklyData);
+concentRouter.get("/weekly_data", concentController.getWeeklyData);
 
-router.get("monthly_data", concentController.getMonthlyData);
+concentRouter.get("/monthly_data", concentController.getMonthlyData);
 
-export default router;
+export { concentRouter };
