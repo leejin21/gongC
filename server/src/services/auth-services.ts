@@ -11,7 +11,7 @@ const signUpService = async (
     nickname: string
 ) => {
     const returnForm: serviceReturnForm = {
-        status: 400,
+        status: 500,
         message: "server error",
         responseData: {},
     };
@@ -28,7 +28,7 @@ const signUpService = async (
         })
         .catch((e) => {
             console.log(e);
-            returnForm.status = 400;
+            returnForm.status = 500;
             returnForm.message = "Server Error";
             return;
         });
@@ -58,7 +58,7 @@ const signUpService = async (
             })
             .catch((e) => {
                 console.log(e);
-                returnForm.status = 400;
+                returnForm.status = 500;
                 returnForm.message = "Server Error";
             });
     }
@@ -67,7 +67,7 @@ const signUpService = async (
 
 const loginService = async (email: string, password: string) => {
     const returnForm: serviceReturnForm = {
-        status: 400,
+        status: 500,
         message: "server error",
         responseData: {},
     };
@@ -106,7 +106,7 @@ const loginService = async (email: string, password: string) => {
         )
         .catch((e) => {
             console.log(e);
-            returnForm.status = 400;
+            returnForm.status = 500;
             returnForm.message = "Server Error";
         });
     return returnForm;

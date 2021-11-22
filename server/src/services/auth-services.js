@@ -29,7 +29,7 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const signUpService = async (email, password, nickname) => {
     const returnForm = {
-        status: 400,
+        status: 500,
         message: "server error",
         responseData: {},
     };
@@ -45,7 +45,7 @@ const signUpService = async (email, password, nickname) => {
     })
         .catch((e) => {
         console.log(e);
-        returnForm.status = 400;
+        returnForm.status = 500;
         returnForm.message = "Server Error";
         return;
     });
@@ -72,7 +72,7 @@ const signUpService = async (email, password, nickname) => {
         })
             .catch((e) => {
             console.log(e);
-            returnForm.status = 400;
+            returnForm.status = 500;
             returnForm.message = "Server Error";
         });
     }
@@ -81,7 +81,7 @@ const signUpService = async (email, password, nickname) => {
 exports.signUpService = signUpService;
 const loginService = async (email, password) => {
     const returnForm = {
-        status: 400,
+        status: 500,
         message: "server error",
         responseData: {},
     };
@@ -115,7 +115,7 @@ const loginService = async (email, password) => {
     })
         .catch((e) => {
         console.log(e);
-        returnForm.status = 400;
+        returnForm.status = 500;
         returnForm.message = "Server Error";
     });
     return returnForm;

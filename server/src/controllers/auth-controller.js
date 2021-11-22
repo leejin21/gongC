@@ -1,6 +1,78 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const auth_services_1 = require("../services/auth-services");
+// * API DOCS PART
+/**
+ * @swagger
+ * definitions:
+ *   SignupUsers:
+ *     type: "object"
+ *     properties:
+ *       email:
+ *         type: "string"
+ *       password:
+ *         type: "string"
+ *       nickname:
+ *         type: "string"
+ */
+/**
+ * @swagger
+ * definitions:
+ *   LoginUsers:
+ *     type: "object"
+ *     properties:
+ *       email:
+ *         type: "string"
+ *       password:
+ *         type: "string"
+ */
+/**
+ * @swagger
+ * /auth/signup:
+ *   post:
+ *     description: 회원가입
+ *     tags: [Post]
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "body"
+ *       in: "body"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/SignupUsers"
+ *     responses:
+ *       "200":
+ *         description: "회원가입 성공"
+ *       "400":
+ *         description: "email, password, nickname 없거나 email 이미 존재하는 경우"
+ *       "500":
+ *         description: "서버 에러"
+ *
+ */
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     description: 로그인
+ *     tags: [Post]
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "body"
+ *       in: "body"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/LoginUsers"
+ *     responses:
+ *       "200":
+ *         description: "로그인 성공"
+ *       "400":
+ *         description: "email, password 없거나 email이나 password가 틀린 경우"
+ *       "500":
+ *         description: "서버 에러"
+ *
+ */
+// * CONTROLLER PART
 const signUp = async (req, res) => {
     // * Validate user input
     if (!req.body.email || !req.body.password || !req.body.nickname) {

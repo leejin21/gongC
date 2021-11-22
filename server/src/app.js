@@ -26,8 +26,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const models_1 = require("./models");
-const user_model_1 = __importDefault(require("./models/user.model"));
 const routes_1 = __importDefault(require("./routes"));
 dotenv.config();
 // * APP VARIABLES
@@ -41,6 +42,28 @@ app.use((req, res, next) => {
     console.log(`Request occur! ${req.method}, ${req.url}`);
     next();
 });
+// * SWAGGER API DOCS SETTING
+const swaggerOptions = {
+    swaggerDefinition: {
+        info: {
+            title: "GongC API",
+            description: "GongC API 문서",
+            contact: {
+                name: "Jin Lee",
+            },
+            servers: ["https://localhost:" + PORT.toString()],
+            version: "0.0.1",
+        },
+    },
+    apis: [
+        __dirname + "/*.js",
+        __dirname + "/*.ts",
+        __dirname + "/controllers/*.js",
+        __dirname + "/controllers/*.ts",
+    ],
+};
+const swaggerDocs = (0, swagger_jsdoc_1.default)(swaggerOptions);
+app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
 // * ROUTER SETTING
 app.use(routes_1.default);
 // get
@@ -49,12 +72,6 @@ app.get("/", (req, res) => {
 });
 app.get("/test", (req, res) => {
     // email password nickname rasp_token android_token
-    const user = new user_model_1.default({
-        email: "test@gmail.com",
-        password: "1111",
-        nickname: "안녕",
-    });
-    user.save();
     res.status(200).send({ done: true });
     // res.status(400).send({ done: false });
 });

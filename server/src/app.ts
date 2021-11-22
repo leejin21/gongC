@@ -2,6 +2,8 @@
 import * as dotenv from "dotenv";
 import express, { Response, Request, NextFunction } from "express";
 import cors from "cors";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 import { sequelize } from "./models";
 import User from "./models/user.model";
@@ -21,6 +23,30 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
+// * SWAGGER API DOCS SETTING
+const swaggerOptions = {
+    swaggerDefinition: {
+        info: {
+            title: "GongC API",
+            description: "GongC API 문서",
+            contact: {
+                name: "Jin Lee",
+            },
+            servers: ["https://localhost:" + PORT.toString()],
+            version: "0.0.1",
+        },
+    },
+    apis: [
+        __dirname + "/*.js",
+        __dirname + "/*.ts",
+        __dirname + "/controllers/*.js",
+        __dirname + "/controllers/*.ts",
+    ],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerDocs));
+
 // * ROUTER SETTING
 app.use(indexRouter);
 
@@ -31,15 +57,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.get("/test", (req: Request, res: Response) => {
     // email password nickname rasp_token android_token
-    const user = new User({
-        email: "test@gmail.com",
-        password: "1111",
-        nickname: "안녕",
-    });
-    user.save();
-
     res.status(200).send({ done: true });
-
     // res.status(400).send({ done: false });
 });
 
