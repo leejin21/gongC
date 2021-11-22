@@ -30,6 +30,7 @@ const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const models_1 = require("./models");
 const routes_1 = __importDefault(require("./routes"));
+const auth_1 = require("./middlewares/auth");
 dotenv.config();
 // * APP VARIABLES
 const PORT = parseInt(process.env.PORT, 10) || 5000;
@@ -70,8 +71,9 @@ app.use(routes_1.default);
 app.get("/", (req, res) => {
     res.send("hello express");
 });
-app.get("/test", (req, res) => {
+app.get("/test", auth_1.verifyToken, (req, res) => {
     // email password nickname rasp_token android_token
+    console.log(req.user?.id);
     res.status(200).send({ done: true });
     // res.status(400).send({ done: false });
 });

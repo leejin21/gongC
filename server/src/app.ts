@@ -8,6 +8,7 @@ import swaggerUiExpress from "swagger-ui-express";
 import { sequelize } from "./models";
 import User from "./models/user.model";
 import indexRouter from "./routes";
+import { verifyToken } from "./middlewares/auth";
 
 dotenv.config();
 // * APP VARIABLES
@@ -55,8 +56,9 @@ app.get("/", (req: Request, res: Response) => {
     res.send("hello express");
 });
 
-app.get("/test", (req: Request, res: Response) => {
+app.get("/test", verifyToken, (req: Request, res: Response) => {
     // email password nickname rasp_token android_token
+    console.log(req.user?.id);
     res.status(200).send({ done: true });
     // res.status(400).send({ done: false });
 });
