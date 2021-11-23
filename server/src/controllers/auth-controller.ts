@@ -1,7 +1,7 @@
-import { Response, Request } from "express";
+import {Response, Request} from "express";
 
-import { loginService, signUpService } from "../services/auth-services";
-import { serviceReturnForm } from "../modules/service-modules";
+import {loginService, signUpService} from "../services/auth-services";
+import {serviceReturnForm} from "../modules/service-modules";
 
 // * API DOCS PART
 /**
@@ -79,10 +79,13 @@ import { serviceReturnForm } from "../modules/service-modules";
 const signUp = async (req: Request, res: Response) => {
     // * Validate user input
     if (!req.body.email || !req.body.password || !req.body.nickname) {
-        res.status(400).send({ status: 400, message: "Fail SignUp" });
+        res.status(400).send({
+            status: 400,
+            message: "email and password and nickname is all required",
+        });
         return;
     }
-    const { email, password, nickname } = req.body;
+    const {email, password, nickname} = req.body;
 
     const returnData: serviceReturnForm = await signUpService(
         email,
@@ -91,7 +94,7 @@ const signUp = async (req: Request, res: Response) => {
     );
     if (returnData.status == 200) {
         // when successed
-        const { status, message, responseData } = returnData;
+        const {status, message, responseData} = returnData;
         res.status(status).send({
             status,
             message,
@@ -99,7 +102,7 @@ const signUp = async (req: Request, res: Response) => {
         });
     } else {
         // when failed
-        const { status, message } = returnData;
+        const {status, message} = returnData;
         res.status(status).send({
             status,
             message,
@@ -116,11 +119,11 @@ const login = async (req: Request, res: Response) => {
         });
         return;
     }
-    const { email, password } = req.body;
+    const {email, password} = req.body;
     const returnData: serviceReturnForm = await loginService(email, password);
     if (returnData.status == 200) {
         // when successed
-        const { status, message, responseData } = returnData;
+        const {status, message, responseData} = returnData;
         res.status(status).send({
             status,
             message,
@@ -128,7 +131,7 @@ const login = async (req: Request, res: Response) => {
         });
     } else {
         // when failed
-        const { status, message } = returnData;
+        const {status, message} = returnData;
         res.status(status).send({
             status,
             message,

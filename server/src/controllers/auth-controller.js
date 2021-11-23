@@ -76,7 +76,10 @@ const auth_services_1 = require("../services/auth-services");
 const signUp = async (req, res) => {
     // * Validate user input
     if (!req.body.email || !req.body.password || !req.body.nickname) {
-        res.status(400).send({ status: 400, message: "Fail SignUp" });
+        res.status(400).send({
+            status: 400,
+            message: "email and password and nickname is all required",
+        });
         return;
     }
     const { email, password, nickname } = req.body;

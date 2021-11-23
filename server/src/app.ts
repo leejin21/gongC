@@ -1,14 +1,14 @@
 // src/app.ts
 import * as dotenv from "dotenv";
-import express, { Response, Request, NextFunction } from "express";
+import express, {Response, Request, NextFunction} from "express";
 import cors from "cors";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
 
-import { sequelize } from "./models";
+import {sequelize} from "./models";
 import User from "./models/user.model";
 import indexRouter from "./routes";
-import { verifyToken } from "./middlewares/auth";
+import {verifyToken} from "./middlewares/auth";
 
 dotenv.config();
 // * APP VARIABLES
@@ -27,6 +27,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // * SWAGGER API DOCS SETTING
 const swaggerOptions = {
     swaggerDefinition: {
+        components: {},
         info: {
             title: "GongC API",
             description: "GongC API 문서",
@@ -59,7 +60,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/test", verifyToken, (req: Request, res: Response) => {
     // email password nickname rasp_token android_token
     console.log(req.user?.id);
-    res.status(200).send({ done: true });
+    res.status(200).send({done: true});
     // res.status(400).send({ done: false });
 });
 

@@ -46,6 +46,7 @@ app.use((req, res, next) => {
 // * SWAGGER API DOCS SETTING
 const swaggerOptions = {
     swaggerDefinition: {
+        components: {},
         info: {
             title: "GongC API",
             description: "GongC API 문서",
