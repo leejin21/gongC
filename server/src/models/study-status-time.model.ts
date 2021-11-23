@@ -18,8 +18,4 @@ export default class StudyStatusTime extends Model {
     @AllowNull(false)
     @Column(DataType.STRING)
     public status!: string;
-
-    @Unique(true)
-    @Column(DataType.DATE)
-    public time!: Date;
 }

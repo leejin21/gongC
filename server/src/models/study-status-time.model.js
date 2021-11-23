@@ -17,10 +17,6 @@ __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING)
 ], StudyStatusTime.prototype, "status", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Unique)(true),
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.DATE)
-], StudyStatusTime.prototype, "time", void 0);
 StudyStatusTime = __decorate([
     sequelize_typescript_1.Table
 ], StudyStatusTime);
