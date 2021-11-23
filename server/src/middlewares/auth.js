@@ -18,7 +18,6 @@ const verifyToken = async (req, res, next) => {
         const TOKEN_KEY = process.env.TOKEN_KEY || "";
         const { email } = jsonwebtoken_1.default.verify(token, TOKEN_KEY);
         let user;
-        console.log("hello");
         await user_model_1.default.findOne({ where: { email: email } })
             .then((data) => {
             user = data;

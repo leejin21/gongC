@@ -23,7 +23,6 @@ export const verifyToken = async (
         const TOKEN_KEY = process.env.TOKEN_KEY || "";
         const { email } = jwt.verify(token, TOKEN_KEY) as decodedData;
         let user;
-        console.log("hello");
         await User.findOne({ where: { email: email } })
             .then((data) => {
                 user = data;

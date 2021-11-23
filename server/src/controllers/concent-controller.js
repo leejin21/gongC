@@ -19,7 +19,27 @@ const postData = async (req, res) => {
         message: returnData.message,
     });
 };
-const getDailyData = async (req, res) => { };
+const getDailyData = async (req, res) => {
+    const user = req.user;
+    const returnData = await (0, concent_services_1.getDailyDataService)(user);
+    if (returnData.status == 200) {
+        // when successed
+        const { status, message, responseData } = returnData;
+        res.status(status).send({
+            status,
+            message,
+            responseData,
+        });
+    }
+    else {
+        // when failed
+        const { status, message } = returnData;
+        res.status(status).send({
+            status,
+            message,
+        });
+    }
+};
 const getWeeklyData = async (req, res) => { };
 const getMonthlyData = async (req, res) => { };
 exports.default = {

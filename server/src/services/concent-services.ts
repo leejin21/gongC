@@ -1,7 +1,9 @@
 import User from "../models/user.model";
 
-import { serviceReturnForm } from "../modules/service-modules";
+import { getYesterday, serviceReturnForm } from "../modules/service-modules";
 import StudyStatusTime from "../models/study-status-time.model";
+
+import { Op } from "sequelize";
 
 const postDataService = async (user: User, status: string) => {
     const returnForm: serviceReturnForm = {
@@ -28,4 +30,71 @@ const postDataService = async (user: User, status: string) => {
     return returnForm;
 };
 
-export { postDataService };
+const getDailyDataService = async (user: User) => {
+    const returnForm: serviceReturnForm = {
+        status: 500,
+        message: "server error",
+        responseData: {},
+    };
+    // * Get today data from StudyStatusTime
+    let responseData = {
+        play: 0,
+        concent: 0,
+        total: 0,
+    };
+    await StudyStatusTime.count({
+        where: {
+            userid: user.id,
+            status: "P",
+            createdAt: {
+                [Op.gte]: getYesterday(),
+            },
+        },
+    })
+        .then((result) => {
+            if (result) {
+                // 1분마다로 제한 주기
+                returnForm.status = 200;
+                returnForm.message = "Get Data Success: yes data";
+                responseData.play = result;
+            } else {
+                returnForm.status = 200;
+                returnForm.message = "Get Data Success: no data";
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+            returnForm.status = 500;
+            returnForm.message = "Server Error";
+        });
+    await StudyStatusTime.count({
+        where: {
+            userid: user.id,
+            status: "C",
+            createdAt: {
+                [Op.gte]: getYesterday(),
+            },
+        },
+    })
+        .then((result) => {
+            if (result) {
+                // 1분마다로 제한 주기
+                returnForm.status = 200;
+                returnForm.message = "Get Data Success: yes data";
+                responseData.concent = result;
+            } else {
+                returnForm.status = 200;
+                returnForm.message = "Get Data Success: no data";
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+            returnForm.status = 500;
+            returnForm.message = "Server Error";
+        });
+    responseData.total = responseData.concent + responseData.play;
+    returnForm.responseData = responseData;
+    return returnForm;
+};
+
+export { postDataService, getDailyDataService };
