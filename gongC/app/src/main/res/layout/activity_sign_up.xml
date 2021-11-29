@@ -59,7 +59,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_signin_password"
-        android:backgroundTint="@color/white"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/layout_signup_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_signup_confirmpw"
-        android:backgroundTint="@color/white"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/layout_signin_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +141,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_signup_nickname"
-        android:backgroundTint="@color/white"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/layout_signup_confirmpw"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

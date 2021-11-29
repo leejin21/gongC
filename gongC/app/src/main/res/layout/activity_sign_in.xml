@@ -60,7 +60,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_signin_password"
-        android:backgroundTint="@color/white"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/layout_signin_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
