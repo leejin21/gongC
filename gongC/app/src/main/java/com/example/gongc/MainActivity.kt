@@ -17,12 +17,10 @@ class MainActivity : AppCompatActivity() {
         val btnSignUp = findViewById<Button>(R.id.button_main_signup)
 
         btnSignIn.setOnClickListener{
-            Log.d("debug11", "main login")
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
         btnSignUp.setOnClickListener{
-            Log.d("debug11", "main signup")
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }

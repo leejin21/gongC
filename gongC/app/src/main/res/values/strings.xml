@@ -19,5 +19,9 @@
     <string name="nickname">Nickname</string>
     <string name="input_nickname">nickname</string>
 
+    <!-- 메인 화면 -->
+    <string name="main_welcome_back">Welcome back,</string>
+    <string name="main_nickname">김눈송</string>
+
 
 </resources>
