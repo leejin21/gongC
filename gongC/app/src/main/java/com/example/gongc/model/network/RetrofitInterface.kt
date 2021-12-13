@@ -10,4 +10,6 @@ import retrofit2.http.Query
 interface RetrofitInterface {
     @POST("auth/login")
     fun postAuthLogin(@Body params:HashMap<String, String>): Call<AuthData>
+    @POST("auth/signup")
+    fun postAuthSignup(@Body params:HashMap<String, String>): Call<AuthData>
 }
