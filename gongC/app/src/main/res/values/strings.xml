@@ -23,5 +23,16 @@
     <string name="main_welcome_back">Welcome back,</string>
     <string name="main_nickname">김눈송</string>
 
+    <!-- 데일리 그래프 프래그먼트 -->
+    <string name="daily_msg">Today\'s learning status</string>
+    <!-- 위클리 그래프 프래그먼트 -->
+    <string name="weekly_msg">This week\'s learning status</string>
 
+    <!-- 데일리, 위클리 프래그먼트 공통-->
+    <string name="focused">Focused</string>
+    <string name="played">Played</string>
+    <string name="focusedTime">0.00 hours</string>
+    <string name="playedTime">0.00 hours</string>
+    <string name="total">Total</string>
+    <string name="totalTime">0.00 hours</string>
 </resources>
