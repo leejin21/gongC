@@ -1,9 +1,9 @@
 import User from "../models/user.model";
 
-import { getYesterday, serviceReturnForm } from "../modules/service-modules";
+import {getYesterday, serviceReturnForm} from "../modules/service-modules";
 import StudyStatusTime from "../models/study-status-time.model";
 
-import { Op } from "sequelize";
+import {Op} from "sequelize";
 
 const postDataService = async (user: User, status: string) => {
     const returnForm: serviceReturnForm = {
@@ -38,9 +38,9 @@ const getDailyDataService = async (user: User) => {
     };
     // * Get today data from StudyStatusTime
     let responseData = {
-        play: 0,
-        concent: 0,
-        total: 0,
+        play: 0.0,
+        concent: 0.0,
+        total: 0.0,
     };
     await StudyStatusTime.count({
         where: {
@@ -97,4 +97,4 @@ const getDailyDataService = async (user: User) => {
     return returnForm;
 };
 
-export { postDataService, getDailyDataService };
+export {postDataService, getDailyDataService};

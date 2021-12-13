@@ -39,9 +39,9 @@ const getDailyDataService = async (user) => {
     };
     // * Get today data from StudyStatusTime
     let responseData = {
-        play: 0,
-        concent: 0,
-        total: 0,
+        play: 0.0,
+        concent: 0.0,
+        total: 0.0,
     };
     await study_status_time_model_1.default.count({
         where: {
