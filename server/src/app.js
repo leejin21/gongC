@@ -25,7 +25,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // src/app.ts
 const dotenv = __importStar(require("dotenv"));
 const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const models_1 = require("./models");
@@ -36,8 +35,21 @@ dotenv.config();
 const PORT = parseInt(process.env.PORT, 10) || 5000;
 const HOST = process.env.HOST || "localhost";
 const app = (0, express_1.default)();
+// * CORS SETTINGS
+var allowCrossDomain = function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    // Request methods you wish to allow
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+    // Request headers you wish to allow
+    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    next();
+};
 // * APP CONFIGURATION: middleware
-app.use((0, cors_1.default)());
+app.use(allowCrossDomain);
 app.use(express_1.default.json());
 app.use((req, res, next) => {
     console.log(`Request occur! ${req.method}, ${req.url}`);

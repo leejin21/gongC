@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        buildConfigField "String", "SERVER_API_KEY", properties['server_api_key']
+
         applicationId "com.example.gongc"
         minSdkVersion 22
         targetSdkVersion 30
