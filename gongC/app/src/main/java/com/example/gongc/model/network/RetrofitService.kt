@@ -1,6 +1,5 @@
 package com.example.gongc.model.network
 
-import com.example.gongc.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

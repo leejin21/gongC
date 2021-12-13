@@ -65,7 +65,7 @@ class SignInActivity : AppCompatActivity() {
                         val sharedPreferences = getSharedPreferences("sFile1", MODE_PRIVATE)
                         val editor: SharedPreferences.Editor = sharedPreferences.edit()
                         val token = data?.responseData?.token // 사용자가 입력한 저장할 데이터
-                        editor.putString("Token", token) // key, value를 이용하여 저장하는 형태
+                        editor.putString("token", token) // key, value를 이용하여 저장하는 형태
                         editor.commit()
 
                         // 홈 화면으로 이동

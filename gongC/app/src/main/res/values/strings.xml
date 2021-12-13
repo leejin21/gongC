@@ -31,8 +31,8 @@
     <!-- 데일리, 위클리 프래그먼트 공통-->
     <string name="focused">Focused</string>
     <string name="played">Played</string>
-    <string name="focusedTime">0.00 hours</string>
-    <string name="playedTime">0.00 hours</string>
+    <string name="focusedTime">000 minutes</string>
+    <string name="playedTime">000 minutes</string>
     <string name="total">Total</string>
-    <string name="totalTime">0.00 hours</string>
+    <string name="totalTime">000 minutes</string>
 </resources>
