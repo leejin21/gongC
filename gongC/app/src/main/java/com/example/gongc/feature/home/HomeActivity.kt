@@ -30,8 +30,8 @@ class HomeActivity : AppCompatActivity() {
 
         val pagerAdapter = PagerFragmentStateAdapter(this)
         pagerAdapter.addFragment(DailyGraph())
-        pagerAdapter.addFragment(MonthlyGraph())
         pagerAdapter.addFragment(WeeklyGraph())
+        pagerAdapter.addFragment(MonthlyGraph())
 
         viewPager.adapter = pagerAdapter
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){})
@@ -46,8 +46,6 @@ class HomeActivity : AppCompatActivity() {
             }
             tab.text = tabName
         }.attach()
-
-
 
     }
 }

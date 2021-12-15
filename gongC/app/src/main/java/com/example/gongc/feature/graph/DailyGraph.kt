@@ -27,7 +27,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DailyGraph : Fragment() {
-    // TODO: Rename and change types of parameters
 
     private var _binding: FragmentDailyGraphBinding? = null
     private val binding get() = _binding!!
