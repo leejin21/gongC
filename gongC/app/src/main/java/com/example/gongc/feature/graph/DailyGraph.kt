@@ -85,10 +85,23 @@ class DailyGraph : Fragment() {
         PieEntry(concent, "Focus").let { yValues.add(it) }
         PieEntry(play, "Play").let { yValues.add(it) }
 
-        val dataSet = PieDataSet(yValues, "WalletStatus")
+        val dataSet = PieDataSet(yValues, "StudyStatus")
         dataSet.selectionShift = 5f
         dataSet.colors = listOf(context?.let { ContextCompat.getColor(it, R.color.pastel_green) },
             context?.let { ContextCompat.getColor(it, R.color.pastel_red) })
+
+        val pdata = PieData((dataSet))
+        pdata.setDrawValues(false)
+
+        pieChart.data = pdata
+    }
+
+    private fun updatePieChart2Grey(){
+        val yValues = ArrayList<PieEntry>()
+        PieEntry(10f, "Total").let { yValues.add(it) }
+        val dataSet = PieDataSet(yValues, "StudyStatus")
+        dataSet.selectionShift = 5f
+        dataSet.colors = listOf(context?.let{ContextCompat.getColor(it, R.color.grey)})
 
         val pdata = PieData((dataSet))
         pdata.setDrawValues(false)
@@ -135,7 +148,12 @@ class DailyGraph : Fragment() {
                             binding.txtDailyTotalTime.text = "$totalTime minutes"
 
                             // 파이 차트 업데이트
-                            updatePieChart(focusTime.toFloat(), playTime.toFloat())
+                            if (focusTime != 0 || playTime != 0){
+                                updatePieChart(focusTime.toFloat(), playTime.toFloat())
+                            } else {
+                                updatePieChart2Grey()
+                            }
+
                         }
                     }?: showError(response.errorBody())
             }
