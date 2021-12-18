@@ -1,13 +1,20 @@
 package com.example.gongc.feature.graph
 
+import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.gongc.R
 import com.example.gongc.databinding.FragmentWeeklyGraphBinding
+import com.example.gongc.model.dataclass.ConcentDailyData
+import com.example.gongc.model.dataclass.ConcentWeeklyData
+import com.example.gongc.model.network.RetrofitService
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
@@ -18,8 +25,11 @@ import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 import com.github.mikephil.charting.formatter.ValueFormatter
-
-
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class WeeklyGraph : Fragment() {
@@ -37,6 +47,7 @@ class WeeklyGraph : Fragment() {
         // * 바차트 설정
         barChart = binding.barchart
         initBarChart()
+        loadData()
         return binding.root
     }
 
@@ -109,6 +120,9 @@ class WeeklyGraph : Fragment() {
     }
 
     private fun updateBarChart(concentValList:ArrayList<Double>, playValList:ArrayList<Double>){
+        val groupSpace = 0.3f
+        val barSpace = 0.1f // x2 DataSet
+        val barWidth = 0.25f // x2 DataSet
 
         val concentEntries = ArrayList<BarEntry>()
         val playEntries = ArrayList<BarEntry>()
@@ -138,10 +152,70 @@ class WeeklyGraph : Fragment() {
         data.setValueFormatter(LargeValueFormatter())
 
         barChart.data= data
+        barChart.barData.barWidth = barWidth;
+        barChart.groupBars(0f, groupSpace, barSpace)
+
+        barChart.xAxis.axisMinimum = 0F
+        barChart.xAxis.axisMaximum = 0 + barChart.barData.getGroupWidth(groupSpace, barSpace) * (xAxisLabel.size)
+        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabel)
+        barChart.xAxis.setCenterAxisLabels(true)
+        barChart.xAxis.setDrawGridLines(false)
+        barChart.setScaleEnabled(false)
         barChart.invalidate()
 
     }
 
+    private fun loadData(){
+        val sharedPreferences: SharedPreferences? = this.activity?.getSharedPreferences("sFile1", AppCompatActivity.MODE_PRIVATE)
+        val token = sharedPreferences?.getString("token", "")
+        Log.d("debug11", "$token 토큰")
+        val call: Call<ConcentWeeklyData>? = token?.let {
+            RetrofitService.service_ct_tab.getConcentWeeklydata(
+                it
+            )
+        }
 
+        call?.enqueue(object : Callback<ConcentWeeklyData> {
+            override fun onFailure(call: Call<ConcentWeeklyData>, t: Throwable) {
+                Log.d("debug11", "from daily graph loaddata, fail $t")
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<ConcentWeeklyData>,
+                response: Response<ConcentWeeklyData>
+            ) {
+                Log.d("debug11", "from daily graph loaddata, on response")
+
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let { _ ->
+                        val data = response.body()
+                        data?.responseData?.let{
+                            val focusTime = it.concentTime
+                            val playTime = it.playTime
+                            val totalTime = it.totalTime
+
+                            // 프래그먼트 텍스트들 업데이트
+                            binding.txtWeeklyFocusedTime.text = "$focusTime minutes"
+                            binding.txtWeeklyPlayedTime.text = "$playTime minutes"
+                            binding.txtWeeklyTotalTime.text = "$totalTime minutes"
+
+                            // 파이 차트 업데이트
+                            updateBarChart(it.concentValList, it.playValList)
+
+                        }
+                    }?: showError(response.errorBody())
+            }
+
+        })
+    }
+
+    private fun showError(error: ResponseBody?){
+        /* [REST] 화면 진입 이후 받아온 API에 문제 있을 때 호출됨 */
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        Log.d("debug11", ob.getString("message"))
+    }
 
 }
