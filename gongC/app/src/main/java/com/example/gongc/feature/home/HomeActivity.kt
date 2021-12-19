@@ -1,19 +1,19 @@
 package com.example.gongc.feature.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.example.gongc.R
 import com.example.gongc.feature.graph.DailyGraph
-import com.example.gongc.feature.graph.MonthlyGraph
 import com.example.gongc.feature.graph.WeeklyGraph
-import com.example.gongc.model.dataclass.ConcentWeeklyData
 import com.example.gongc.model.dataclass.HomeNicknameData
 import com.example.gongc.model.network.RetrofitService
 import com.google.android.material.tabs.TabLayout
@@ -23,14 +23,17 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.gongc.MainActivity
+
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var toolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         // 툴바 연결
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         // 탭 레이아웃, 뷰 페이저 연결
@@ -59,9 +62,41 @@ class HomeActivity : AppCompatActivity() {
 
         // 닉네임 가져오기(by REST API)
         loadData()
+
+        // 인텐트 저장하기(for 로그아웃 이벤트)
+        intent = Intent(this, MainActivity::class.java)
     }
 
+    // 로그아웃 이벤트 캐리
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true;
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_logout -> {
+                // <로그아웃> 이벤트 발생
+                Log.d("debug11", "로그아웃함")
+                // 토큰이 계속 초기화가 되기때문에 sharedPreferences로 저장하여 초기화 방지
+                val sharedPreferences = getSharedPreferences("sFile1", MODE_PRIVATE)
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                val token = "" // 토큰에 빈 문자열 입력
+                editor.putString("token", token) // key, value를 이용하여 저장하는 형태
+                editor.apply()
 
+                // 홈 화면으로 이동
+                startActivity(intent)
+                true
+            }
+            else -> {
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+    // REST API: home/nickname
     private fun loadData(){
         val sharedPreferences: SharedPreferences? = this.getSharedPreferences("sFile1", AppCompatActivity.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", "")
