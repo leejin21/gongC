@@ -37,7 +37,7 @@ class SignUpActivity : AppCompatActivity() {
         val body = HashMap<String, String>()
         body["email"] = findViewById<EditText>(R.id.edit_signup_email).text.toString()
         body["password"] = findViewById<EditText>(R.id.edit_signup_password).text.toString()
-//        body["confirmpw"] = findViewById<EditText>(R.id.edit_signup_confirmpw).text.toString()
+        body["confirmpw"] = findViewById<EditText>(R.id.edit_signup_confirmpw).text.toString()
         body["nickname"] = findViewById<EditText>(R.id.edit_signup_nickname).text.toString()
 
         val call: Call<AuthData> = RetrofitService.service_ct_tab.postAuthSignup(body)
